@@ -1,7 +1,8 @@
 import React from 'react';
 import { useTable } from 'react-table';
-import { compare, formatDate } from './table.utils';
-
+import { capitalize, compare, formatDate } from '../../functions.utils';
+import { ReactComponent as AlphabeticalOrder } from '../../assets/alphabetical_order_icon.svg';
+import './table.styles.scss';
 
 const getData = (orders, value) => {
   return orders.sort((a, b) => {
@@ -15,23 +16,36 @@ const getData = (orders, value) => {
     const { name, gender, dob } = e;
     return ({
       col1: `${name.title} ${name.first} ${name.last}`,
-      col2: gender,
+      col2: capitalize(gender),
       col3: formatDate(new Date(dob.date)),
       col4: e
     })
   })
 }
 
-const Table = ({ data : receivedUsers, OnClick }) => {
-  console.log(receivedUsers)
-    const data = React.useMemo(
-      () => getData(receivedUsers), []
-    );
+const TableHeader = ({A, children, ...props}) => {
+  return (
+    <div className="tableHeader">
+      { children}
+      {
+        A
+        ?
+        <AlphabeticalOrder width="25px"/>
+        :
+        null
+      }
+    </div>
+  );
+}
+
+const Table = props => {
+    const { data : receivedUsers, OnClick } = props;
+    const data = React.useMemo(() => getData(receivedUsers), [receivedUsers]);
 
     const columns = React.useMemo(
       () => [
         {
-          Header: 'Name',
+          Header: <TableHeader A>Name</TableHeader>,
           accessor: 'col1'
         },
         {
@@ -39,14 +53,14 @@ const Table = ({ data : receivedUsers, OnClick }) => {
           accessor: 'col2'
         },
         {
-          Header: 'Gender',
+          Header: 'Birth',
           accessor: 'col3'
         },
         {
-          Header: 'Itens',
+          Header: 'Actions',
           Cell: ({ value }) => <div className="click" onClick={() => OnClick(value)}>Visualizar</div>,
           accessor: 'col4'
-        }], []
+        }], [OnClick]
     );
 
     const {
@@ -65,7 +79,7 @@ const Table = ({ data : receivedUsers, OnClick }) => {
                 id: 'col2',
                 desc: true
             }
-            ]
+          ]
         }
       })
 

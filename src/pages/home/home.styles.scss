@@ -1,14 +1,22 @@
-.home {
+.home, .topBar, .companyInfo, .content, .middleDiv, .request {
   display: flex;
+}
+
+@mixin center {
+  justify-content: center;
+  align-items: center;
+}
+
+
+.home {
   flex-direction: column;
   height: 100%;
 
 
   .topBar {
-    display: flex;
+    @include center;
     height: 100px;
-    background-color: green;
-    align-items: center;
+    background-color: white;
     justify-content: space-between;
     padding: 1rem 2rem;
 
@@ -18,9 +26,7 @@
     }
 
     .companyInfo {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      @include center;
       gap: 10px;
 
       img {
@@ -32,23 +38,38 @@
     }
   }
 
-  .middleDiv {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    
-    background-color: aqua;
-    .data {
-      display: flex;
-      justify-content: center;
+  .content {
+    @include center;
+    background-color: #F7F9FA;
+    height: 100%;
+    padding: 20px;
+    .middleDiv {
+      flex-direction: column;
       align-items: center;
-      background-color: red;
-      height: 100%;
-      padding: 50px;
+      width: min-content;
+      gap: 20px;
 
       .loading {
         font-size: 30px;
       }
+
+      .request {
+        @include center;
+        margin-top: auto;
+        gap: 10px;
+        width: 100%;
+        padding: 10px;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+    
+  
+    .notLoaded {
+      width: 50rem;
+      height: 25rem;
     }
   }
 }

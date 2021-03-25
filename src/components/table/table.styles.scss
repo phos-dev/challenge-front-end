@@ -1,0 +1,66 @@
+table {
+  border-spacing: 0;
+  border: 1px solid #9EADBA;
+  width: 100%;
+
+  .click {
+      cursor: pointer;
+  }
+  
+  tr {
+    &:last-child {
+      td {
+        border-bottom: 0;
+      }
+    }
+
+  }
+  th,
+  td {
+    margin: 0;
+    padding: 0.5rem;
+    border-bottom: 1px solid #9EADBA;
+    border-right: 1px solid #9EADBA;
+    background-color: white;
+    text-align: center;
+    &:last-child {
+      border-right: 0;
+    }
+  }
+  
+    
+  th {
+    background-color: #C3CFD9;
+    min-width: 13rem;
+
+    &:hover {
+      cursor: pointer;
+    }
+    
+    .tableHeader {
+      justify-content: center;
+      display: flex;
+      position: relative;
+
+      svg {
+        position: absolute;
+        right: 0;
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+  }
+  @media only screen and (max-width: 950px) {
+    th {
+      min-width: 10rem;
+    }
+  }
+  @media only screen and (max-width: 700px) {
+    th {
+      min-width: 6rem;
+    }
+  }
+}

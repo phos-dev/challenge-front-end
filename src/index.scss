@@ -2,20 +2,18 @@
 
 body {
   margin: 0;
-  font-family: 'IBM Plex Serif';
+  padding: 0;
+  font-family: 'IBM Plex Serif', 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 html, body, #root, .App { height: 100%; }
 
-.Home-modal-7 {
-  display: flex;
-  flex-direction: center;
-  justify-content: center;
-  align-items: center;
+a {
+  color: black;
+  text-decoration: none;
 }
 
-.Home-modal-8 {
-  background-color: white;
-  padding: 10px;
+* {
+  box-sizing: border-box;
 }
