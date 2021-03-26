@@ -1,4 +1,4 @@
-.home, .topBar, .companyInfo, .content, .middleDiv, .request {
+.home, .companyInfo, .content, .middleDiv, .request {
   display: flex;
 }
 
@@ -13,36 +13,12 @@
   height: 100%;
 
 
-  .topBar {
-    @include center;
-    height: 100px;
-    background-color: white;
-    justify-content: space-between;
-    padding: 1rem 2rem;
-
-    .profilePic {
-      border-radius: 100%;
-      height: 80px;
-    }
-
-    .companyInfo {
-      @include center;
-      gap: 10px;
-
-      img {
-        height: 80px;
-      }
-      span {
-        font-size: 23px;
-      }
-    }
-  }
-
   .content {
     @include center;
     background-color: #F7F9FA;
     height: 100%;
     padding: 20px;
+    
     .middleDiv {
       flex-direction: column;
       align-items: center;

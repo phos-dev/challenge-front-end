@@ -2,7 +2,7 @@ table {
   border-spacing: 0;
   border: 1px solid #9EADBA;
   width: 100%;
-
+  
   .click {
       cursor: pointer;
   }
@@ -42,6 +42,10 @@ table {
       display: flex;
       position: relative;
 
+      .notSorted {
+        fill-opacity: 0.5;
+      }
+      
       svg {
         position: absolute;
         right: 0;
@@ -58,9 +62,19 @@ table {
       min-width: 10rem;
     }
   }
-  @media only screen and (max-width: 700px) {
+  @media only screen and (max-width: 830px) {
     th {
-      min-width: 6rem;
+      min-width: 8rem;
+
+      flex-shrink: 100;
+      .tableHeader {
+        display: flex;
+        position: static;
+        svg {
+          position: static;
+          margin-left: 10px;
+        }
+      }
     }
   }
 }

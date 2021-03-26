@@ -1,18 +1,14 @@
-import React from 'react';
-import { useTable } from 'react-table';
-import { capitalize, compare, formatDate } from '../../functions.utils';
+import React, { useEffect } from 'react';
+import { useTable, useSortBy, useFilters } from 'react-table';
+import { capitalize, formatDate } from '../../functions.utils';
 import { ReactComponent as AlphabeticalOrder } from '../../assets/alphabetical_order_icon.svg';
+import { ReactComponent as ReverseOrder } from '../../assets/alphabetical_reverse_order_icon.svg';
+import { ReactComponent as MaleIcon } from '../../assets/gender_male.svg';
+import { ReactComponent as FemaleIcon } from '../../assets/gender_female.svg';
 import './table.styles.scss';
 
-const getData = (orders, value) => {
-  return orders.sort((a, b) => {
-    switch (value) {
-      case 'new': return compare(b.date, a.date);
-      case 'lowprice': return compare(a.total, b.total);
-      case 'highprice': return compare(b.total, a.total);
-      default: return 1;
-    }
-  }).map(e => {
+const getData = orders => {
+  return orders.map(e => {
     const { name, gender, dob } = e;
     return ({
       col1: `${name.title} ${name.first} ${name.last}`,
@@ -23,16 +19,44 @@ const getData = (orders, value) => {
   })
 }
 
-const TableHeader = ({A, children, ...props}) => {
+const TableHeader = ({ Name, children, column, id, ...props }) => {
+  const { isSorted, isSortedDesc, setFilter } = column;
+
+  useEffect(() => {
+    if(!Name && isSorted) {
+      if(isSortedDesc) {
+        setFilter('Male');
+      }
+      else {
+        setFilter('Female');
+      }
+    }
+    else if(isSortedDesc === undefined) {
+      setFilter(undefined);
+    }
+  }, [Name, isSorted, isSortedDesc])
+
   return (
-    <div className="tableHeader">
+    <div className="tableHeader" id={id}>
       { children}
       {
-        A
+        Name
         ?
-        <AlphabeticalOrder width="25px"/>
+        (
+          isSortedDesc 
+          ?
+          <ReverseOrder className={`${!isSorted ? 'notSorted' : ''}`} width="25px" height="25px"/>
+          :
+          <AlphabeticalOrder className={`${!isSorted ? 'notSorted' : ''}`} width="25px" height="25px"/>
+        )
         :
-        null
+        (
+          isSortedDesc 
+          ?
+          <MaleIcon className={`${!isSorted ? 'notSorted' : ''}`} width="25px" height="25px"/>
+          :
+          <FemaleIcon className={`${!isSorted ? 'notSorted' : ''}`} width="25px" height="25px"/>
+        )
       }
     </div>
   );
@@ -45,43 +69,36 @@ const Table = props => {
     const columns = React.useMemo(
       () => [
         {
-          Header: <TableHeader A>Name</TableHeader>,
+          Header: (props) => <TableHeader id='sortByName' Name {...props}>Name</TableHeader>,
           accessor: 'col1'
         },
         {
-          Header: 'Gender',
-          accessor: 'col2'
+          Header: (props) => <TableHeader id='filterByGender' {...props}>Gender</TableHeader>,
+          accessor: 'col2',
+          filter: (rows, id, filterValue) => {
+            return rows.filter((row) => row.values[id] === filterValue);
+          }
         },
         {
           Header: 'Birth',
-          accessor: 'col3'
+          accessor: 'col3',
+          disableSortBy: true
         },
         {
           Header: 'Actions',
           Cell: ({ value }) => <div className="click" onClick={() => OnClick(value)}>Visualizar</div>,
-          accessor: 'col4'
+          accessor: 'col4',
+          disableSortBy: true
         }], [OnClick]
     );
-
+    
     const {
       getTableProps,
       getTableBodyProps,
       headerGroups,
       rows,
-      prepareRow,
-    } = useTable(
-      { 
-        columns,
-        data,
-        initialState : {
-          sortBy: [
-              {
-                id: 'col2',
-                desc: true
-            }
-          ]
-        }
-      })
+      prepareRow
+    } = useTable({ columns, data }, useFilters, useSortBy)
 
     return (
     <table {...getTableProps()}>
@@ -91,7 +108,7 @@ const Table = props => {
           <tr {...headerGroup.getHeaderGroupProps()}>
             {
             headerGroup.headers.map(column => (
-              <th {...column.getHeaderProps()}>
+              <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                 {column.render('Header')}
               </th>
             ))}
@@ -104,10 +121,11 @@ const Table = props => {
           prepareRow(row)
           return (
             <tr {...row.getRowProps()}>
+              
               {
-              row.cells.map(cell => {
+              row.cells.map((cell, index) => {
                 return (
-                  <td
+                  <td id={`${index > 1 ? 'tableData' : (index === 1 ? 'genderData' : 'nameData')}`}
                     {...cell.getCellProps()}>
                     {
                     cell.render('Cell')

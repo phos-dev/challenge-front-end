@@ -10,7 +10,7 @@ const CustomModal = ({ data, onClose }) => {
     id, 
     gender,
     nat,
-    dob : { age, date },
+    dob : { date },
     phone,
     email,
     location
@@ -41,25 +41,5 @@ const CustomModal = ({ data, onClose }) => {
     </div>
   )
 }
-/*
-Imagem - check
-Nome completo - check
 
-Informação Pessoal:
-{
-  "street": {"number":7488,"name":"Nowlin Rd"},
-  "city":"Bunbury",
-  "state":"Tasmania",
-  "country":"Australia",
-  "postcode":6241
-
-  ID (Número de identificação)
-  Gênero
-  Data de nascimento
-  Nacionalidade
-  Endereço
-Contato:
-  Email
-  Telefone
-*/
 export default CustomModal;

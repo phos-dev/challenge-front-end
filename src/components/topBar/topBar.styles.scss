@@ -1,0 +1,25 @@
+@mixin center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.topBar {
+  @include center;
+  height: 100px;
+  background-color: white;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+
+  .profilePic {
+    border-radius: 100%;
+  }
+
+  .companyInfo {
+    @include center;
+    gap: 10px;
+    
+    span {
+      font-size: 23px;
+    }
+  }
+}
