@@ -2,6 +2,7 @@ import React from 'react';
 import { configure, mount } from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import Table from './table.component';
+
 configure({adapter: new Adapter()});
 
 const getUsers = async () => {
@@ -9,9 +10,6 @@ const getUsers = async () => {
   .then(res => res.json())
   .then(data => data.results)
 }
-
-
- 
 
 describe('testing tableComponent', () => {
   
