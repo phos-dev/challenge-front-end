@@ -1,3 +1,5 @@
+[Coodesh - Front-end challenge 2021](https://lab.coodesh.com/public-challenges/front-end-challenge-2021)
+
 # Pharma.inc
   Sistema de gerenciamento de usuário.
 ## Tecnologias utilizadas:
@@ -12,13 +14,13 @@
 
 ### `yarn start`
 
-Roda o aplicativo em modo desenvolvimento\
+Roda o aplicativo em modo desenvolvimento
 Abra [http://localhost:3000](http://localhost:3000) para vizualizar no seu navegador.
 
 ### `yarn test`
 
-Roda os testes (Ordem alfabética, ordem alfabética reversa, filtrar por gênero feminino e masculino)\
+Roda os testes (Ordem alfabética, ordem alfabética reversa, filtrar por gênero feminino e masculino)
 
 ### `yarn build`
 
-Empacota o app para produção na pasta `build`\
+Empacota o app para produção na pasta `build`
