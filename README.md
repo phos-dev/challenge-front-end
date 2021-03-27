@@ -21,4 +21,4 @@ Roda os testes (Ordem alfabética, ordem alfabética reversa, filtrar por gêner
 
 ### `yarn build`
 
-Enpacota o app para produção na pasta `build` folder.\
+Empacota o app para produção na pasta `build`\
